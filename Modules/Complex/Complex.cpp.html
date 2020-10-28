@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Complex.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+	<body onload="prettyPrint()">
+        <h4></h4>
+		<pre class="prettyprint lang-cpp linenums">
+#include "Complex.h"
+#include "pch.h"
+
+<span style = "background-color:#dfd">ComplexNumber::ComplexNumber(double number) {
+    real_num = number;
+    imag_part = 0;
+}
+ComplexNumber::ComplexNumber(RationalNumber real_num, RationalNumber imag_part) {
+    this-&gt;real_num = real_num;
+    this-&gt;imag_part = imag_part;
+}
+ComplexNumber::ComplexNumber(const ComplexNumber&amp; other) {
+    real_num = other.real_num;
+    imag_part = other.imag_part;
+}
+ComplexNumber::~ComplexNumber() {}
+ComplexNumber&amp; ComplexNumber::operator=(const ComplexNumber&amp; other) {
+    real_num = other.real_num;
+    imag_part = other.imag_part;
+    return *this;
+}
+ComplexNumber ComplexNumber::operator+(const ComplexNumber&amp; other) const {
+    RationalNumber new_real = real_num + other.real_num;
+    RationalNumber new_image = imag_part + other.imag_part;
+    return ComplexNumber(new_real, new_image);
+}
+ComplexNumber&amp; ComplexNumber::operator+=(const ComplexNumber&amp; other) {
+    *this = *this + other;
+    return *this;
+}
+ComplexNumber ComplexNumber::operator-(const ComplexNumber&amp; other) const {
+    RationalNumber new_real = real_num - other.real_num;
+    RationalNumber new_image = imag_part - other.imag_part;
+    return ComplexNumber(new_real, new_image);
+}
+ComplexNumber&amp; ComplexNumber::operator-=(const ComplexNumber&amp; other) {
+    *this = *this - other;
+    return *this;
+}
+ComplexNumber ComplexNumber::operator*(const ComplexNumber&amp; other) const {</span>
+    RationalNumber new_real =
+<span style = "background-color:#dfd">        real_num * other.real_num - imag_part * other.imag_part;</span>
+    RationalNumber new_image =
+<span style = "background-color:#dfd">        real_num * other.imag_part + imag_part * other.real_num;
+    return ComplexNumber(new_real, new_image);
+}
+ComplexNumber&amp; ComplexNumber::operator*=(const ComplexNumber&amp; other) {
+    *this = *this * other;
+    return *this;
+}
+ComplexNumber ComplexNumber::operator/(const ComplexNumber&amp; other) const {
+    RationalNumber null;
+    if (other.real_num == null &amp;&amp; other.imag_part == null) {
+        throw std::exception("Division by zero!");</span>
+    }
+<span style = "background-color:#dfd">    RationalNumber div = other.real_num.Sqt() + other.imag_part.Sqt();
+    RationalNumber new_real = (real_num * other.real_num + imag_part * other.imag_part) / div;
+    RationalNumber new_image = (imag_part * other.real_num - real_num * other.imag_part) / div;
+    return ComplexNumber(new_real, new_image);
+}
+ComplexNumber&amp; ComplexNumber::operator/=(const ComplexNumber&amp; other) {
+    *this = *this / other;
+    return *this;
+}
+const bool operator==(const ComplexNumber&amp; our, const ComplexNumber&amp; other) {
+    return our.real_num == other.real_num &amp;&amp; our.imag_part == other.imag_part;
+}
+const bool operator!=(const ComplexNumber&amp; our, const ComplexNumber&amp; other) {
+    return (our.real_num != other.real_num || our.imag_part != other.imag_part);
+}
+ComplexNumber ComplexNumber::operator-() const {
+    return ComplexNumber(-real_num, -imag_part);
+}
+RationalNumber ComplexNumber::Abs() const {
+    return RationalNumber((real_num.Sqt() + imag_part.Sqt()).Sqrt());
+}
+RationalNumber ComplexNumber::Arg() const {
+    RationalNumber PI = acos(-1.0);
+    RationalNumber arg_result = RationalNumber(imag_part / real_num).Atan();
+    if (real_num &lt; 0 &amp;&amp; imag_part &gt;= 0) {
+        arg_result += PI;
+    }
+    else if (real_num &lt; 0 &amp;&amp; imag_part &lt; 0) {
+        arg_result -= PI;</span>
+    }
+<span style = "background-color:#dfd">    return arg_result;
+}
+ComplexNumber ComplexNumber::Pow(int power) {
+    ComplexNumber result(real_num, imag_part);
+    ComplexNumber complex_pow(real_num, imag_part);
+    for (int i = 1; i &lt; power; i++) {
+        result *= complex_pow;
+    }
+    return result;
+}
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const ComplexNumber&amp; complex) {
+    return out &lt;&lt; "ComplexNumber(" &lt;&lt; complex.real_num &lt;&lt; ", " &lt;&lt; complex.imag_part &lt;&lt; ")";
+}
+void ComplexNumber::SetReal(RationalNumber real_num) {
+    this-&gt;real_num = real_num;
+}
+void ComplexNumber::SetImag(RationalNumber imag_part) {
+    this-&gt;imag_part = imag_part;
+}
+RationalNumber ComplexNumber::GetReal() { return real_num; }
+RationalNumber ComplexNumber::GetImag() { return imag_part; }</span></pre>
+	</body>
+</html>

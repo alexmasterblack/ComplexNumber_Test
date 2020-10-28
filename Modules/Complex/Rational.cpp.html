@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Rational.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+	<body onload="prettyPrint()">
+        <h4></h4>
+		<pre class="prettyprint lang-cpp linenums">
+#include "Rational.h"
+#include "pch.h"
+
+<span style = "background-color:#dfd">RationalNumber::RationalNumber() {}
+RationalNumber::RationalNumber(double number) {
+    if (number == static_cast&lt;int64_t&gt;(number)) {
+        numerator = static_cast&lt;int64_t&gt;(number);
+        denominator = 1;
+    }</span>
+    else {
+<span style = "background-color:#dfd">        std::ostringstream str;
+        str &lt;&lt; number;
+        std::string decimal = str.str();
+        std::string after_point = decimal.substr(decimal.find('.') + 1);
+        int lenght = after_point.length();</span>
+
+<span style = "background-color:#dfd">        for (; lenght &gt; 0; lenght--) {
+            number *= 10;
+            denominator *= 10;
+        }
+        numerator = number;
+        Reduction();
+    }
+}
+RationalNumber::RationalNumber(int64_t numerator, int64_t denominator) {
+    if (denominator != 0) {
+        this-&gt;numerator = numerator;
+        this-&gt;denominator = denominator;</span>
+    }
+<span style = "background-color:#dfd">    if (this-&gt;denominator &lt;= 0) {
+        this-&gt;denominator = -this-&gt;denominator;
+        this-&gt;numerator = -this-&gt;numerator;</span>
+    }
+<span style = "background-color:#dfd">    if (this-&gt;numerator != 0) {
+        Reduction();
+    }</span>
+    else {
+<span style = "background-color:#dfd">        this-&gt;denominator = 1;</span>
+    }
+<span style = "background-color:#dfd">}</span>
+int64_t RationalNumber::GreatestCommonFactor(int64_t number_one,
+<span style = "background-color:#dfd">    int64_t number_two) {
+    while (number_one != number_two) {
+        if (number_one &gt; number_two) {
+            int64_t support = number_one;
+            number_one = number_two;
+            number_two = support;</span>
+        }
+<span style = "background-color:#dfd">        number_two -= number_one;
+    }
+    return number_one;
+}
+void RationalNumber::Reduction() {
+    int64_t div = GreatestCommonFactor(abs(numerator), denominator);
+    numerator /= div;
+    denominator /= div;
+}
+RationalNumber&amp; RationalNumber::operator=(const RationalNumber&amp; other) {
+    numerator = other.numerator;
+    denominator = other.denominator;
+    return *this;
+}</span>
+const RationalNumber operator+(const RationalNumber&amp; our,
+<span style = "background-color:#dfd">    const RationalNumber&amp; other) {</span>
+    int64_t new_num, new_den;
+<span style = "background-color:#dfd">    if (our.denominator != other.denominator) {
+        new_num =</span>
+            our.numerator * other.denominator + other.numerator * our.denominator;
+<span style = "background-color:#dfd">        new_den = our.denominator * other.denominator;
+    }</span>
+    else {
+<span style = "background-color:#dfd">        new_num = our.numerator + other.numerator;
+        new_den = our.denominator;</span>
+    }
+<span style = "background-color:#dfd">    return RationalNumber(new_num, new_den);
+}
+RationalNumber&amp; RationalNumber::operator+=(const RationalNumber&amp; other) {
+    *this = *this + other;
+    return *this;
+}</span>
+const RationalNumber operator-(const RationalNumber&amp; our,
+<span style = "background-color:#dfd">    const RationalNumber&amp; other) {</span>
+    int64_t new_num, new_den;
+<span style = "background-color:#dfd">    if (our.denominator != other.denominator) {
+        new_num =</span>
+            our.numerator * other.denominator - other.numerator * our.denominator;
+<span style = "background-color:#dfd">        new_den = our.denominator * other.denominator;
+    }</span>
+    else {
+<span style = "background-color:#dfd">        new_num = our.numerator - other.numerator;
+        new_den = our.denominator;</span>
+    }
+<span style = "background-color:#dfd">    return RationalNumber(new_num, new_den);
+}
+RationalNumber&amp; RationalNumber::operator-=(const RationalNumber&amp; other) {
+    *this = *this - other;
+    return *this;
+}</span>
+const RationalNumber operator*(const RationalNumber&amp; our,
+<span style = "background-color:#dfd">    const RationalNumber&amp; other) {
+    return RationalNumber(our.numerator * other.numerator,</span>
+        our.denominator * other.denominator);
+<span style = "background-color:#dfd">}</span>
+const RationalNumber operator/(const RationalNumber&amp; our,
+<span style = "background-color:#dfd">    const RationalNumber&amp; other) {
+    return RationalNumber(our.numerator * other.denominator,</span>
+        our.denominator * other.numerator);
+<span style = "background-color:#dfd">}
+const bool operator==(const RationalNumber&amp; our, const RationalNumber&amp; other) {
+    return our.numerator == other.numerator &amp;&amp;</span>
+        our.denominator == other.denominator;
+<span style = "background-color:#dfd">}
+const bool operator!=(const RationalNumber&amp; our, const RationalNumber&amp; other) {
+    return !(our == other);
+}
+RationalNumber RationalNumber::operator-() const {
+    return RationalNumber(-numerator, denominator);
+}
+const bool operator&lt;(const RationalNumber&amp; our, const RationalNumber&amp; other) {
+    return our.numerator * other.denominator &lt; other.numerator* our.denominator;
+}
+const bool operator&gt;=(const RationalNumber&amp; our, const RationalNumber&amp; other) {
+    return !(our &lt; other);
+}
+RationalNumber RationalNumber::Sqrt() const {
+    return RationalNumber(sqrt(numerator) / sqrt(denominator));
+}
+RationalNumber RationalNumber::Sqt() const {
+    return RationalNumber(numerator * numerator, denominator * denominator);
+}
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const RationalNumber&amp; rational) {
+    return out &lt;&lt; rational.numerator &lt;&lt; "/" &lt;&lt; rational.denominator;
+}
+RationalNumber RationalNumber::Atan() const {
+    return atan(static_cast&lt;double&gt;(numerator) /</span>
+        static_cast&lt;double&gt;(denominator));
+<span style = "background-color:#dfd">}
+std::string RationalNumber::GetFraction() const {
+    return std::to_string(numerator) + "/" + std::to_string(denominator);
+}</span>
+
+double RationalNumber::GetDouble() const
+<span style = "background-color:#dfd">{
+    return static_cast&lt;double&gt;(numerator) / static_cast&lt;double&gt;(denominator);
+}</span></pre>
+	</body>
+</html>

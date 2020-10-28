@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Rational.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+	<body onload="prettyPrint()">
+        <h4></h4>
+		<pre class="prettyprint lang-cpp linenums">
+#pragma once
+#include &lt;cstdint&gt;
+#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+
+
+class RationalNumber {
+<span style = "background-color:#dfd">    int64_t numerator = 0;
+    int64_t denominator = 1;</span>
+public:
+    RationalNumber();
+
+    RationalNumber(double number);
+
+    RationalNumber(int64_t numerator, int64_t denominator);
+
+    int64_t GreatestCommonFactor(int64_t number_one, int64_t number_two);
+
+    void Reduction();
+
+    RationalNumber&amp; operator=(const RationalNumber&amp; other);
+
+    friend const RationalNumber operator+(const RationalNumber&amp; our, const RationalNumber&amp; other);
+
+    RationalNumber&amp; operator+=(const RationalNumber&amp; other);
+
+    friend const RationalNumber operator-(const RationalNumber&amp; our, const RationalNumber&amp; other);
+
+    RationalNumber&amp; operator-=(const RationalNumber&amp; other);
+
+    friend const RationalNumber operator*(const RationalNumber&amp; our, const RationalNumber&amp; other);
+
+    friend const RationalNumber operator/(const RationalNumber&amp; our, const RationalNumber&amp; other);
+
+    friend const bool operator==(const RationalNumber&amp; our, const RationalNumber&amp; other);
+
+    friend const bool operator!=(const RationalNumber&amp; our, const RationalNumber&amp; other);
+
+    RationalNumber operator-() const;
+
+    friend const bool operator&lt;(const RationalNumber&amp; our, const RationalNumber&amp; other);
+
+
+    friend const bool operator&gt;=(const RationalNumber&amp; our, const RationalNumber&amp; other);
+
+    RationalNumber Sqrt() const;
+
+    RationalNumber Sqt() const;
+
+    friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const RationalNumber&amp; rational);
+
+    RationalNumber Atan() const;
+
+    std::string GetFraction() const;
+
+    double GetDouble() const;
+};</pre>
+	</body>
+</html>

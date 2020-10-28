@@ -1,0 +1,5 @@
+ComplexNumber(7/5, 8011/100)
+
+ComplexNumber(0/1, 0/1)
+
+ComplexNumber(24121/1000, 0/1)
