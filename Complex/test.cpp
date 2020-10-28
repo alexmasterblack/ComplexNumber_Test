@@ -33,7 +33,6 @@ TEST(ComplexNumberTest_Converting, A) {
 
 	EXPECT_EQ(a.GetReal().GetFraction(), "-2941/50");
 	EXPECT_EQ(a.GetImag().GetFraction(), "0/1");
-
 }
 TEST(ComplexNumberTest_Converting, B) {
 	ComplexNumber a;
@@ -42,7 +41,6 @@ TEST(ComplexNumberTest_Converting, B) {
 
 	EXPECT_EQ(a.GetReal().GetFraction(), "60061/5000");
 	EXPECT_EQ(a.GetImag().GetFraction(), "0/1");
-
 }
 TEST(ComplexNumberTest_Converting, C) {
 	ComplexNumber a;
@@ -51,7 +49,6 @@ TEST(ComplexNumberTest_Converting, C) {
 
 	EXPECT_EQ(a.GetReal().GetFraction(), "20/1");
 	EXPECT_EQ(a.GetImag().GetFraction(), "0/1");
-
 }
 TEST(ComplexNumberTest_Converting, D) {
 	ComplexNumber a = 33.1;
