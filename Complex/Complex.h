@@ -9,7 +9,7 @@ private:
 public:
     ComplexNumber(double number = 0);
 
-    ComplexNumber(RationalNumber real_num, RationalNumber imag_part);
+    ComplexNumber(const RationalNumber& real_num, const RationalNumber& imag_part);
 
     ComplexNumber(const ComplexNumber& other);
 

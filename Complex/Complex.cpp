@@ -5,7 +5,7 @@ ComplexNumber::ComplexNumber(double number) {
     real_num = number;
     imag_part = 0;
 }
-ComplexNumber::ComplexNumber(RationalNumber real_num, RationalNumber imag_part) {
+ComplexNumber::ComplexNumber(const RationalNumber& real_num, const RationalNumber& imag_part) {
     this->real_num = real_num;
     this->imag_part = imag_part;
 }
